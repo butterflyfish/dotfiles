@@ -12,3 +12,6 @@ for info in *; do
 done
 )
 
+# install fonts
+./fonts/install.sh
+
