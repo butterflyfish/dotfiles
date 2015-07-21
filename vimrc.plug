@@ -1,0 +1,265 @@
+call plug#begin('~/.vim/plugged')
+
+
+Plug 'tpope/vim-repeat'
+
+" Enhanced terminal integration
+Plug 'wincent/terminus'
+
+" toggle, display and navigate marks
+Plug 'kshenoy/vim-signature'
+
+" toggle the display of the quickfix list and the location-list
+" Plug 'Valloric/ListToggle'
+
+" Change code right in the quickfix window
+Plug 'stefandtw/quickfix-reflector.vim'
+
+
+" Edit assistant {{{1
+" pay attention on motion in gc{motion}, e.g. gcw, gcap
+Plug 'tomtom/tcomment_vim'
+
+Plug 'bkad/CamelCaseMotion'
+omap <silent> iw <Plug>CamelCaseMotion_iw
+xmap <silent> iw <Plug>CamelCaseMotion_iw
+
+" provides mappings to easily delete, change and add such surroundings in pairs
+Plug 'tpope/vim-surround'
+
+" Easy text exchange operator
+Plug 'tommcdo/vim-exchange'
+
+" provides insert mode auto-completion for quotes, parens, brackets, etc.
+Plug 'Raimondi/delimitMate'
+
+" https://github.com/terryma/vim-multiple-cursors
+" see example gif and keystrokes
+Plug 'terryma/vim-multiple-cursors'
+
+" }}}
+
+" code {{{1
+
+" Syntax checking hacks
+Plug 'scrooloose/syntastic'
+
+" displaying thin vertical lines at each indentation level for code indented
+" with spaces. patching font to get better visual
+Plug 'Yggdroot/indentLine'
+
+" JSON manipulation and pretty printing
+Plug 'tpope/vim-jdaddy', { 'for': 'json' }
+
+" Golang {{{2
+"
+" :GoInstallBinaries/GoUpdateBinaries to install/update godef, gocode etc
+Plug 'fatih/vim-go', { 'do': 'vim +GoInstallBinaries +qall' }
+
+" workable for vim and mvim
+let g:go_bin_path=expand("~/.gocode/bin")
+
+" Show type info for the word under your cursor
+let g:go_auto_type_info=1
+
+" Enable goimports to automatically insert import paths instead of gofmt
+let g:go_fmt_command = "goimports"
+
+" Disable auto fmt on save:
+" let g:go_fmt_autosave = 0
+
+" }}}
+
+" Javascript and HTML {{{2
+" javascript auto-completition based on Tern
+" Tern uses .tern-project files to configure loading libraries and plugins for
+" a project. See the Tern docs for details
+Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
+
+" JavaScript Parameter Complete
+Plug 'othree/jspc.vim'
+
+" Vastly improved Javascript indentation and syntax
+Plug 'pangloss/vim-javascript'
+
+" ultisnips is alternative
+" Plug 'mattn/emmet-vim'
+
+" Browserlink is a live browser editing plugin for Vim
+" Plug 'jaxbot/brolink.vim'
+
+" }}}
+
+" YCM and Ultisnips {{{2
+"
+Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
+let g:ycm_confirm_extra_conf = 0
+" autocmd FileType c nnoremap <buffer> <silent> <C-]> :YcmCompleter GoTo<cr>
+
+" read identifiers from tags file
+let g:ycm_collect_identifiers_from_tags_files=1
+
+let g:ycm_add_preview_to_completeopt = 1
+" let g:ycm_autoclose_preview_window_after_insertion = 1
+
+let g:ycm_key_list_select_completion = ['<Tab>']
+
+" vim-snippets depends on ultisnips
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+let g:UltiSnipsListSnippets= "<c-u>" "work under insermode
+let g:UltiSnipsExpandTrigger = '<c-j>'
+let g:UltiSnipsJumpForwardTrigger = '<c-j>'
+let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
+
+let g:snips_author="Michael Zhu"
+let g:snips_author_email="boot2linux@gmail.com"
+
+
+"}}}
+
+" tagbar {{{2
+Plug 'majutsushi/tagbar'
+let g:tagbar_left=1
+let g:tagbar_autofocus=1
+nmap <leader>t :TagbarOpenAutoClose<CR>
+" }}}
+
+" }}}
+
+" Tmux & Airline {{{1
+
+Plug 'bling/vim-airline'
+let g:airline_powerline_fonts = 1
+
+Plug 'christoomey/vim-tmux-navigator'
+
+" Just start vim inside of tmux. airline's colors will be applied to tmux's
+" statusline
+Plug 'edkolev/tmuxline.vim'
+
+" }}}
+
+" easy-align {{{1
+Plug 'junegunn/vim-easy-align'
+
+" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+" wildfire also use Enter by default
+vmap <Enter> <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. <Leader>aip)
+nmap <Leader>a <Plug>(EasyAlign)
+"}}}
+
+" Git {{{1
+" airline depents on it optionaly
+" Gbrowser depens on instaweb settings, on MAC, it recommneds:
+" git config --global instaweb.httpd webrick
+" git config --global instaweb.browser open
+Plug 'tpope/vim-fugitive'
+
+" shows a git diff in the gutter (sign column) and stages/reverts hunks.
+Plug 'airblade/vim-gitgutter'
+
+" }}}
+
+" CtrlP {{{1
+" Fast CtrlP matcher based on python
+Plug 'FelikZ/ctrlp-py-matcher'
+let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+
+Plug 'tacahiroy/ctrlp-funky'
+nnoremap <Leader>ff :CtrlPFunky<Cr>
+
+Plug 'kien/ctrlp.vim'
+
+"'r' - the nearest ancestor that contains one of these directories or files:
+"      .git .hg .svn .bzr _darcs
+" a' - like c, but only if the current working directory outside of CtrlP is not
+"      a direct ancestor of the directory of the current file.
+let g:ctrlp_working_path_mode = 'ra'
+
+if executable('ag') " The Silver Searcher
+    let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
+    " ag is fast enough that CtrlP doesn't need to cache
+    let g:ctrlp_use_caching = 0
+elseif executable('find')
+    let s:ctrlp_fallback = 'find %s -type f'
+else " Window OS
+    let s:ctrlp_fallback = 'dir %s /-n /b /s /a-d'
+endif
+
+"Use %s in place of the target directory
+let g:ctrlp_user_command = {
+    \ 'types': {
+      \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
+      \ 2: ['.hg', 'hg --cwd %s locate -i .'],
+    \ },
+    \ 'fallback': s:ctrlp_fallback
+    \ }
+
+" Exclude files and directories using Vim's wildignore and g:ctrlp_custom_ignore
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ }
+
+nmap <leader><space> :CtrlPBuffer<cr>
+
+" }}}
+
+" Undotree {{{1
+Plug 'mbbill/undotree'
+nnoremap <leader>u :UndotreeToggle<CR>
+let g:undotree_SetFocusWhenToggle=1
+" }}}
+
+" color scheme and highlight {{{1
+
+" colorscheme
+Plug 'morhetz/gruvbox'
+Plug 'fatih/molokai'
+
+Plug 'ap/vim-css-color'
+
+" all trailing whitespace characters (spaces and tabs)
+" :StripWhitespace --- clean whitespace painless
+Plug 'ntpeters/vim-better-whitespace'
+
+" showing different levels of parentheses in different colors
+Plug 'luochen1990/rainbow'
+let g:rainbow_active = 1
+
+" }}}
+
+" search {{{1
+"
+Plug 'haya14busa/incsearch.vim'
+
+" automatically tuner off highlight
+let g:incsearch#auto_nohlsearch = 1
+
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
+
+Plug 'dyng/ctrlsf.vim'
+map <leader>/ :CtrlSF<Space>
+noremap K :CtrlSF "\b<C-R><C-W>\b"<CR>
+
+" }}}
+
+" autoload .vimrc.plug
+au! bufwritepost .vimrc.plug source ~/.vimrc.plug
+
+if filereadable(expand("~/.vimrc.plug.local"))
+    source ~/.vimrc.plug.local
+endif
+
+call plug#end()
+
+" vim: set foldlevel=0 foldmethod=marker:

@@ -21,3 +21,13 @@ done
 ln -sf $PWD/zshrc ~/.zshrc
 echo "make link for zshrc"
 
+# download Minimalist Vim Plugin Manager
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+echo install/update minimalist Vim plugin manager
+
+# Neovim/Vim's config file and plugins
+ln -sf $PWD/vimrc ~/.vimrc
+ln -sf $PWD/vimrc ~/.nvimrc
+ln -sf $PWD/vimrc.plug ~/.vimrc.plug
+echo "make links for Vim/Neovim's configuration"
