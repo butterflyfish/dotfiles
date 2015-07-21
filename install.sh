@@ -14,6 +14,7 @@ done
 )
 
 # install fonts
+# iTerm2 and Vim use the fonts
 ./fonts/install.sh
 
 # install oh-my-zsh[https://github.com/robbyrussell/oh-my-zsh]
