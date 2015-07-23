@@ -25,3 +25,23 @@ Taking MAC OS as an example to show *How to let zsh as default shell on Mac OS ?
 chsh -s /usr/local/bin/zsh $USER
 sudo echo /usr/local/bin/zsh >> /etc/shells
 ```
+
+## [iTerm](https://iterm2.com)
+
+iTerm is my favority terminal emulator on MAC OS X. It have wonderful features, e.g.
+
+* Mouseless Copy
+* Trigger
+* Captured Output
+* Autocomplete
+* Paste History & Advanced Paste
+
+My profiles change set:
+
+* Text page: use *Anonymice Powerline* as Font and Non-ASCII Font
+* Terminal: Report Terminal  Type is *xterm-256color-italic*
+* Advanced -> Trigger
+	* Regular Expression: *^([a-zA-Z0-9+/.-]+):([0-9]+):[0-9]+: (?:error|warning):*
+	* Action: Capture Output
+	* Parameters: *echo :e +\2 \1*
+* colors presets: [guvbox](https://github.com/morhetz/gruvbox-generalized/tree/master/iterm2), Solarized Dark
