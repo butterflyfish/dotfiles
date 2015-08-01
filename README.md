@@ -44,4 +44,12 @@ My profiles change set:
 	* Regular Expression: *^([a-zA-Z0-9+/.-]+):([0-9]+):[0-9]+: (?:error|warning):*
 	* Action: Capture Output
 	* Parameters: *echo :e +\2 \1*
-* colors presets: [guvbox](https://github.com/morhetz/gruvbox-generalized/tree/master/iterm2), Solarized Dark
+* colors presets: [guvbox](https://github.com/morhetz/gruvbox-generalized/tree/master/iterm2), Solarized Dark(builtin)
+
+How to reset settings to default ?
+
+```sh
+defaults delete com.googlecode.iterm2
+```
+
+
