@@ -32,3 +32,5 @@ ln -sf $PWD/vimrc ~/.vimrc
 ln -sf $PWD/vimrc ~/.nvimrc
 ln -sf $PWD/vimrc.plug ~/.vimrc.plug
 echo "make links for Vim/Neovim's configuration"
+echo "start vim to install plugins"
+vim +PlugInstall +qall
