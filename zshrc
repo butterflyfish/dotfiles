@@ -49,7 +49,7 @@ ZSH_THEME="pure"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(autojump gitfast golang web-search colored-man brew sudo cp vi-mode)
+plugins=(autojump gitfast golang web-search colored-man brew sudo vi-mode history-substring-search)
 
 # User configuration
 
