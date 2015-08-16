@@ -13,6 +13,7 @@ to use [brew](http://brew.sh)
 ```sh
 git clone
 cd dotfiles
+chmod +x install.sh
 ./install.sh
 ```
 
