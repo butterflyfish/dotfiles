@@ -22,6 +22,13 @@ done
 ln -sf $PWD/zshrc ~/.zshrc
 echo "make link for zshrc"
 
+(
+echo "Install zsh prompt pure"
+cd ~/.oh-my-zsh/custom
+curl https://raw.githubusercontent.com/sindresorhus/pure/master/pure.zsh > pure.zsh-theme
+curl https://raw.githubusercontent.com/sindresorhus/pure/master/async.zsh > async.zsh
+)
+
 # download Minimalist Vim Plugin Manager
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
