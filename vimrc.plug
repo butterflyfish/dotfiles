@@ -15,6 +15,17 @@ Plug 'kshenoy/vim-signature'
 " Change code right in the quickfix window
 Plug 'stefandtw/quickfix-reflector.vim'
 
+" read man page
+Plug 'bruno-/vim-man'
+
+" work better for neovim {{{1
+if has("nvim")
+
+Plug 'benekastah/neomake'
+Plug 'critiqjo/lldb.nvim', { 'do':  'nvim +UpdateRemotePlugins' }
+
+endif
+" }}}
 
 " Edit assistant {{{1
 " pay attention on motion in gc{motion}, e.g. gcw, gcap
@@ -111,7 +122,7 @@ let g:UltiSnipsExpandTrigger = '<c-j>'
 let g:UltiSnipsJumpForwardTrigger = '<c-j>'
 let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
 
-let g:snips_author="Michael Zhu"
+let g:snips_author="Michael Zhu <boot2linux@gmail.com>"
 let g:snips_author_email="boot2linux@gmail.com"
 
 
