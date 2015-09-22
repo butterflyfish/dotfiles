@@ -103,7 +103,7 @@ Plug 'pangloss/vim-javascript'
 
 " YCM and Ultisnips {{{2
 "
-Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer --gocode-completer' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --gocode-completer' }
 let g:ycm_confirm_extra_conf = 0
 " autocmd FileType c nnoremap <buffer> <silent> <C-]> :YcmCompleter GoTo<cr>
 
