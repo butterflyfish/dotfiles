@@ -104,8 +104,17 @@ Plug 'pangloss/vim-javascript'
 " YCM and Ultisnips {{{2
 "
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --gocode-completer' }
+
 let g:ycm_confirm_extra_conf = 0
-" autocmd FileType c nnoremap <buffer> <silent> <C-]> :YcmCompleter GoTo<cr>
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+
+" put diagnostic message to location list
+" get a detailed diagnostic message with the <leader>d key mapping
+let g:ycm_always_populate_location_list = 1
+
+let g:ycm_complete_in_comments = 1
+
+autocmd FileType c nnoremap <buffer> <silent> <C-]> :YcmCompleter GoTo<cr>
 
 " read identifiers from tags file
 let g:ycm_collect_identifiers_from_tags_files=1
