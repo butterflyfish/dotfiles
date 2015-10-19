@@ -21,7 +21,12 @@
 " c?search<Enter>
 
 " ctags
-" ctags -R --fields=+ialS --language=c
+"
+" ctags -R --exclude=.git --tag-relative --fields=+l --langmap=c:.c.h -f .git/tags
+" git ls-files | ctags --tag-relative -L - --fields=+l --langmap=c:.c.h -f .git/tags
+" I stick the tags file in .git because if fugitive.vim is installed, Vim will be configured
+" to look for tags there automatically, regardless of your current working directory
+"
 " hitting g] or CTRL-] will jump to the place where that method is defined or implemented.
 " :CtrlPTag will let you search through your tags file and jump to where tags are defined
 
