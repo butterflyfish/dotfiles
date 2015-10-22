@@ -83,6 +83,9 @@ nnoremap <Leader>w :w<cr>
 nnoremap <Leader>- 2<C-w>-
 nnoremap <Leader>= 2<C-w>+
 
+" switch between last two files
+nnoremap <leader><Tab> <c-^>
+
 " http://vim.wikia.com/wiki/Move_cursor_by_display_lines_when_wrapping
 nnoremap <silent> j gj
 nnoremap <silent> k gk
