@@ -276,8 +276,8 @@ autocmd QuickFixCmdPost *grep* cwindow
 
 " }}}
 
-if filereadable('./local.vimrc')
-    so ./local.vimrc
+if filereadable('./.vimrc.local')
+    so ./.vimrc.local
 endif
 
 " set grepprg=ag\ --nogroup\ --nocolor
