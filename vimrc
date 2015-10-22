@@ -159,6 +159,9 @@ syntax enable
 highlight Comment cterm=italic
 highlight Comment gui=italic
 
+" highlight SCM merge conflict markers
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
+
 " highlight current line
 set cursorline
 
