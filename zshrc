@@ -76,3 +76,4 @@ bindkey '^R' history-incremental-search-backward
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 alias -s c=vim
+export NVIM_TUI_ENABLE_TRUE_COLOR=1
