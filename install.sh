@@ -35,8 +35,10 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 echo install/update minimalist Vim plugin manager
 
 # Neovim/Vim's config file and plugins
+mkdir -p ${XDG_CONFIG_HOME:=$HOME/.config}
+ln -sf ~/.vim $XDG_CONFIG_HOME/nvim
+ln -sf $PWD/vimrc $XDG_CONFIG_HOME/nvim/init.vim
 ln -sf $PWD/vimrc ~/.vimrc
-ln -sf $PWD/vimrc ~/.nvimrc
 ln -sf $PWD/vimrc.plug ~/.vimrc.plug
 echo "make links for Vim/Neovim's configuration"
 echo "start vim to install plugins"
