@@ -257,20 +257,27 @@ let g:rainbow_active = 1
 " }}}
 
 " search {{{1
-"
-Plug 'haya14busa/incsearch.vim'
 
-" automatically tuner off highlight
-let g:incsearch#auto_nohlsearch = 1
+Plug 'easymotion/vim-easymotion'
 
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
-map *  <Plug>(incsearch-nohl-*)
-map #  <Plug>(incsearch-nohl-#)
-map g* <Plug>(incsearch-nohl-g*)
-map g# <Plug>(incsearch-nohl-g#)
+" Disable default mappings
+let g:EasyMotion_do_mapping = 0
+
+" makes EasyMotion work similarly to Vim's smartcase for global searches
+let g:EasyMotion_smartcase = 1
+
+" n-character search motion
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+
+" 2-character search motion
+nmap s <Plug>(easymotion-s2)
+nmap t <Plug>(easymotion-t2)
+
+" JK motions: Line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+
 
 Plug 'dyng/ctrlsf.vim'
 map <leader>/ :CtrlSF<Space>
