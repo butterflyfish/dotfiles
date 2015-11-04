@@ -112,18 +112,19 @@ nnoremap <expr> <CR> foldlevel(line('.'))  ? "za" : "\<CR>"
 " Find merge conflict markers
 nnoremap <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
 
-if !has("gui_running")
-    silent !stty -ixon > /dev/null 2>&1
-    imap <C-q> <Esc>:q!<CR>
-    map <C-q> :q!<CR>
-endif
-
 " An alternative for the esc key is CTRL+[ combination
 inoremap jk <Esc>
 
-nnoremap <F5> :w<CR> :silent make<CR>
-inoremap <F5> <Esc>:w<CR>:silent make<CR>
+if has('nvim')
 
+" keymap for neovim terminal
+tnoremap <Esc> <C-\><C-n>
+tnoremap <C-h> <C-\><C-n><C-w>h
+tnoremap <C-j> <C-\><C-n><C-w>j
+tnoremap <C-k> <C-\><C-n><C-w>k
+tnoremap <C-l> <C-\><C-n><C-w>l
+
+endif
 
 " }}}
 
