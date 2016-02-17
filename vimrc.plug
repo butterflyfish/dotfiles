@@ -91,11 +91,7 @@ Plug 'othree/jspc.vim'
 " Vastly improved Javascript indentation and syntax
 Plug 'pangloss/vim-javascript'
 
-" ultisnips is alternative
-" Plug 'mattn/emmet-vim'
-
-" Browserlink is a live browser editing plugin for Vim
-" Plug 'jaxbot/brolink.vim'
+Plug 'mattn/emmet-vim'
 
 " }}}
 
