@@ -3,9 +3,6 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-repeat'
 
-" Enhanced terminal integration
-Plug 'wincent/terminus'
-
 " toggle, display and navigate marks
 Plug 'kshenoy/vim-signature'
 
