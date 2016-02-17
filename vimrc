@@ -141,10 +141,7 @@ if has("gui_running")
     set gfn=Anonymice\ Powerline:h14
 
     " colorscheme
-    let g:rehash256=1
-    let g:molokai_original=1
     colorscheme molokai
-    set t_Co=256 "for terminal
 else
     colorscheme gruvbox
 endif

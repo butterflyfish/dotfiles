@@ -236,8 +236,7 @@ let g:undotree_SetFocusWhenToggle=1
 
 " colorscheme
 Plug 'morhetz/gruvbox'
-Plug 'fatih/molokai'
-
+Plug 'justinmk/molokai'
 Plug 'ap/vim-css-color'
 
 " all trailing whitespace characters (spaces and tabs)
