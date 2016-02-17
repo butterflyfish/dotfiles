@@ -261,6 +261,7 @@ let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_smartcase = 1
 
 " n-character search motion
+" use <Tab> and <S-Tab> to scroll down/up a page
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
 
@@ -272,11 +273,13 @@ nmap t <Plug>(easymotion-t2)
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 
+" Move to word
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 Plug 'dyng/ctrlsf.vim'
 map <leader>/ :CtrlSF<Space>
-noremap K :CtrlSF "\b<C-R><C-W>\b"<CR>
-
+map <leader>s :CtrlSFToggle<cr>
 " }}}
 
 " autoload .vimrc.plug
