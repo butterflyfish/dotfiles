@@ -121,9 +121,6 @@ let g:go_fmt_command = "goimports"
 " a project. See the Tern docs for details
 Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
 
-" JavaScript Parameter Complete
-Plug 'othree/jspc.vim'
-
 " Vastly improved Javascript indentation and syntax
 Plug 'pangloss/vim-javascript'
 
