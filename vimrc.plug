@@ -22,8 +22,6 @@ Plug 'benekastah/neomake'
 nnoremap <F5> :w<CR> :Neomake!<CR>
 inoremap <F5> <Esc>:w<CR>:Neomake!<CR>
 
-Plug 'critiqjo/lldb.nvim', { 'do':  'nvim +UpdateRemotePlugins' }
-
 endif
 " }}}
 
