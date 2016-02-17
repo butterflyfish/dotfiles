@@ -67,6 +67,10 @@ set splitright
 " Intuitive backspacing in insert mode
 set backspace=indent,eol,start
 
+" complete options
+set completeopt+=noinsert
+set completeopt+=noselect
+set completeopt-=preview
 
 " key map {{{1
 "TIP: check what's mapped to the key
