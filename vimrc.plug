@@ -26,8 +26,8 @@ endif
 " }}}
 
 " Edit assistant {{{1
-" pay attention on motion in gc{motion}, e.g. gcw, gcap
-Plug 'tomtom/tcomment_vim'
+
+Plug 'tpope/vim-commentary'
 
 Plug 'bkad/CamelCaseMotion'
 omap <silent> iw <Plug>CamelCaseMotion_iw
