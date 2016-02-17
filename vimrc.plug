@@ -12,11 +12,11 @@ Plug 'kshenoy/vim-signature'
 " Change code right in the quickfix window
 Plug 'stefandtw/quickfix-reflector.vim'
 
-" read man page
-Plug 'bruno-/vim-man'
-
 " work better for neovim {{{1
 if has("nvim")
+
+" man page:autocomplete, jump to manpages
+Plug 'nhooyr/neoman.vim'
 
 Plug 'benekastah/neomake'
 nnoremap <F5> :w<CR> :Neomake!<CR>
