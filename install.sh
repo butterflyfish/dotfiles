@@ -3,8 +3,13 @@
 # Tmux's configuration file
 ln -sf $PWD/tmux.conf ~/.tmux.conf
 
+# https://alexpearce.me/2014/05/italics-in-iterm2-vim-tmux/
 # install terminfo that support italic font
 # and they are used by iTerm and Tmux etc
+# Note if you do SSH, environment may be passed on the remote and it will probable don't know
+# this terminal. A possible solution on the local host is to alias ssh
+#     alias ssh="TERM=xterm-256color ssh"
+alias ssh="TERM=xterm-256color ssh"
 (
 cd terminfo
 for info in *; do
