@@ -25,6 +25,42 @@ Plug 'benekastah/neomake'
 nnoremap <F5> :w<CR> :Neomake!<CR>
 inoremap <F5> <Esc>:w<CR>:Neomake!<CR>
 
+" auto-complete {{{2
+
+Plug 'Shougo/deoplete.nvim'
+let g:deoplete#enable_at_startup = 1
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+
+Plug 'Rip-Rip/clang_complete'
+let g:clang_library_path = "/usr/local/opt/llvm/lib"
+
+" do some snippets magic on code placeholders like function argument,
+" template parameters, etc
+let g:clang_snippets = 1
+
+" TODO: how to use compile_commands.json
+" let g:clang_auto_user_options = "compile_commands.json, path"
+" let g:clang_compilation_database = "build"
+
+let g:clang_complete_auto = 0
+let g:clang_auto_select = 0
+let g:clang_omnicppcomplete_compliance = 0
+let g:clang_make_default_keymappings = 0
+
+
+Plug 'Shougo/neoinclude.vim'
+" disable ctags
+let g:neoinclude#ctags_command = ""
+
+
+Plug 'zchee/deoplete-go', { 'do': 'make'}
+
+Plug 'Shougo/echodoc.vim'
+set cmdheight=2
+let g:echodoc_enable_at_startup = 1
+
+" }}}
+
 endif
 " }}}
 
@@ -95,33 +131,7 @@ Plug 'mattn/emmet-vim'
 
 " }}}
 
-" YCM and Ultisnips {{{2
-"
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --gocode-completer' }
-
-function! Keymap4C()
-    if len(tagfiles()) == 0
-        nnoremap <buffer> <silent> gd :YcmCompleter GoTo<CR>
-    endif
-endfunction
-autocmd FileType c :call Keymap4C()
-
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-
-" put diagnostic message to location list
-" get a detailed diagnostic message with the <leader>d key mapping
-let g:ycm_always_populate_location_list = 1
-
-let g:ycm_complete_in_comments = 1
-
-" read identifiers from tags file
-let g:ycm_collect_identifiers_from_tags_files=1
-
-let g:ycm_add_preview_to_completeopt = 1
-" let g:ycm_autoclose_preview_window_after_insertion = 1
-
-let g:ycm_key_list_select_completion = ['<Tab>']
+" Ultisnips {{{2
 
 " vim-snippets depends on ultisnips
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
