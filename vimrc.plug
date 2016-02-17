@@ -12,6 +12,9 @@ Plug 'kshenoy/vim-signature'
 " Change code right in the quickfix window
 Plug 'stefandtw/quickfix-reflector.vim'
 
+" set filetype according to context
+Plug 'Shougo/context_filetype.vim'
+
 " work better for neovim {{{1
 if has("nvim")
 
