@@ -69,7 +69,9 @@ set backspace=indent,eol,start
 
 
 " key map {{{1
-
+"TIP: check what's mapped to the key
+":verbose imap <tab>
+"
 " don't use Arrow to navigator
 nnoremap <Left> :echoe "Use h"<CR>
 nnoremap <Right> :echoe "Use l"<CR>
@@ -204,9 +206,10 @@ endif
 " backup {{{1
 set nobackup
 set noswapfile
+
 if has("persistent_undo")
     "directory must be existed first
-    set undodir='~/.undodir/'
+    set undodir="~/.undodir"
     set undofile
     set undolevels=1000     " Maximum number of changes that can be undone
     set undoreload=10000    " Maximum number lines to save for undo on a buffer reload
@@ -248,7 +251,7 @@ set autowrite
 " indent {{{1
 
 " to insert a real tab when 'expandtab' is on, use CTRL-V<Tab>
-" set expandtab
+set expandtab
 set tabstop=4 shiftwidth=4 softtabstop=4
 
 "help smarttab
