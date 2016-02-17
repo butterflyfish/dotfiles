@@ -50,9 +50,6 @@ Plug 'terryma/vim-multiple-cursors'
 
 " code {{{1
 
-" Syntax checking hacks
-Plug 'scrooloose/syntastic'
-
 " displaying thin vertical lines at each indentation level for code indented
 " with spaces. patching font to get better visual
 Plug 'Yggdroot/indentLine'
