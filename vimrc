@@ -98,6 +98,10 @@ nnoremap <silent> k gk
 vnoremap <silent> j gj
 vnoremap <silent> k gk
 
+" quickfix
+nnoremap ]q :cn<cr>
+nnoremap [q :cp<cr>
+
 " Typing 'a will jump to the line marked with ma. However, `a will jump to the
 " line and column marked with ma. "swap them.
 nnoremap ' `
