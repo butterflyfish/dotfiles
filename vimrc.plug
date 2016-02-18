@@ -183,8 +183,12 @@ nmap <Leader>a <Plug>(EasyAlign)
 Plug 'jreybert/vimagit'
 nnoremap <leader>g :Magit<cr>
 
-" shows a git diff in the gutter (sign column) and stages/reverts hunks.
+" shows a git diff in the gutter
 Plug 'airblade/vim-gitgutter'
+let g:gitgutter_map_keys = 0
+" jump between hunks:
+nmap ]h <Plug>GitGutterNextHunk
+nmap [h <Plug>GitGutterPrevHunk
 
 " }}}
 
