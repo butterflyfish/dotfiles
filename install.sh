@@ -9,7 +9,6 @@ ln -sf $PWD/tmux.conf ~/.tmux.conf
 # Note if you do SSH, environment may be passed on the remote and it will probable don't know
 # this terminal. A possible solution on the local host is to alias ssh
 #     alias ssh="TERM=xterm-256color ssh"
-alias ssh="TERM=xterm-256color ssh"
 (
 cd terminfo
 for info in *; do
@@ -40,11 +39,12 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 echo install/update minimalist Vim plugin manager
 
 # Neovim/Vim's config file and plugins
+echo "make links for Vim/Neovim's configuration"
 mkdir -p ${XDG_CONFIG_HOME:=$HOME/.config}
 ln -sf ~/.vim $XDG_CONFIG_HOME/nvim
 ln -sf $PWD/vimrc $XDG_CONFIG_HOME/nvim/init.vim
 ln -sf $PWD/vimrc ~/.vimrc
 ln -sf $PWD/vimrc.plug ~/.vimrc.plug
-echo "make links for Vim/Neovim's configuration"
-echo "start vim to install plugins"
-vim +PlugInstall +qall
+
+echo "start Vim/Neovim to install plugins"
+$(type nvim > /dev/null) && nvim +PlugInstall +qall || vim +PlugInstall +qall
