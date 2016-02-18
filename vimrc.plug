@@ -180,6 +180,10 @@ nmap <Leader>a <Plug>(EasyAlign)
 "}}}
 
 " Git {{{1
+
+" Glog, Grep, Gblame
+Plug 'tpope/vim-fugitive'
+
 Plug 'jreybert/vimagit'
 nnoremap <leader>g :Magit<cr>
 
