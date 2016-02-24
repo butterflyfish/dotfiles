@@ -83,7 +83,7 @@ nnoremap <Up> :echoe "Use k"<CR>
 nnoremap <Down> :echoe "Use j"<CR>
 
 nnoremap <Leader>q :q!<cr>
-nnoremap <Leader>w :w<cr>
+nnoremap <Leader>s :w<cr>
 
 " Resize Window
 nnoremap <Leader>- 2<C-w>-

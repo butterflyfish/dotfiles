@@ -330,7 +330,7 @@ nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 Plug 'dyng/ctrlsf.vim'
 map <leader>/ :CtrlSF<Space>
-map <leader>s :CtrlSFToggle<cr>
+map <leader>c :CtrlSFToggle<cr>
 " }}}
 
 " autoload .vimrc.plug
