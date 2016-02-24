@@ -29,7 +29,6 @@ inoremap <F5> <Esc>:w<CR>:Neomake!<CR>
 
 Plug 'Shougo/deoplete.nvim'
 let g:deoplete#enable_at_startup = 1
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
 Plug 'Rip-Rip/clang_complete'
 let g:clang_library_path = "/usr/local/opt/llvm/lib"
@@ -132,14 +131,45 @@ Plug 'mattn/emmet-vim'
 
 " vim-snippets depends on ultisnips
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-let g:UltiSnipsListSnippets= "<c-u>" "work under insermode
-let g:UltiSnipsExpandTrigger = '<c-j>'
-let g:UltiSnipsJumpForwardTrigger = '<c-j>'
-let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
 
-let g:snips_author="Michael Zhu <boot2linux@gmail.com>"
-let g:snips_author_email="boot2linux@gmail.com"
+" work under insermode or :call UltiSnipsListSnippets()
+let g:UltiSnipsListSnippets= "<c-u>"
 
+" https://github.com/SirVer/ultisnips/issues/519#issuecomment-143450416
+" next menu item, expand snippet, forward or insert literal tab
+let g:UltiSnipsJumpForwardTrigger="<NOP>"
+inoremap <expr> <TAB>
+    \ pumvisible() ? "\<C-n>" :
+    \ "<C-R>=ExpandSnippetOrJumpForwardOrReturnTab()<CR>"
+
+" forward or do nothing
+snoremap <buffer> <silent> <TAB>
+    \ <ESC>:call UltiSnips#JumpForwards()<CR>
+
+" expand snippet, close menu or insert newline
+let g:UltiSnipsExpandTrigger = "<NOP>"
+inoremap <silent> <CR> <C-R>=ExpandSnippetOrReturnEmptyString()<CR>
+
+function! ExpandSnippetOrJumpForwardOrReturnTab()
+    let snippet = UltiSnips#ExpandSnippetOrJump()
+    if g:ulti_expand_or_jump_res > 0
+        return snippet
+    else
+        return "\<TAB>"
+    endif
+endfunction
+
+function! ExpandSnippetOrReturnEmptyString()
+    if pumvisible()
+        let snippet = UltiSnips#ExpandSnippetOrJump()
+        if g:ulti_expand_or_jump_res > 0
+            return snippet
+        else
+            return "\<C-y>\<CR>"
+        endif
+    else
+        return "\<CR>"
+endfunction
 
 "}}}
 
