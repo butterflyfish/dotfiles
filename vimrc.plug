@@ -114,8 +114,6 @@ Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
 " Yet Another Javascript Syntax
 Plug 'othree/yajs.vim'
 
-Plug 'mattn/emmet-vim'
-
 " }}}
 
 " Ultisnips {{{2
