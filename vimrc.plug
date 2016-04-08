@@ -205,16 +205,6 @@ nmap <Leader>a <Plug>(EasyAlign)
 " Glog, Grep, Gblame
 Plug 'tpope/vim-fugitive'
 
-Plug 'jreybert/vimagit'
-nnoremap <leader>g :Magit<cr>
-let g:magit_stage_hunk_mapping = '-'
-let g:magit_stage_file_mapping = '='
-let g:magit_commit_mapping         = 'cc'
-let g:magit_commit_amend_mapping   = 'ca'
-let g:magit_commit_fixup_mapping   = 'cf'
-let g:magit_discard_hunk_mapping   = 'X'
-let g:magit_mark_line_mapping      = 'm'
-
 " shows a git diff in the gutter
 Plug 'airblade/vim-gitgutter'
 let g:gitgutter_map_keys = 0
