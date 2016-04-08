@@ -35,8 +35,6 @@ let g:deoplete#sources#clang#libclang_path =  "/usr/local/opt/llvm/lib/libclang.
 let  g:deoplete#sources#clang#clang_header = '/usr/local/opt/llvm/lib/clang'
 
 Plug 'Shougo/neoinclude.vim'
-" disable ctags
-let g:neoinclude#ctags_command = ""
 
 
 Plug 'zchee/deoplete-go', { 'do': 'make'}
