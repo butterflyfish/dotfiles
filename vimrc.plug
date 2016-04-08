@@ -222,13 +222,15 @@ let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 Plug 'tacahiroy/ctrlp-funky'
 nnoremap <Leader>ff :CtrlPFunky<Cr>
 
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
+" nnoremap <Leader>o :CtrlP<CR>
+let g:ctrlp_map = '<Leader>o'
+
 
 "'r' - the nearest ancestor that contains one of these directories or files:
 "      .git .hg .svn .bzr _darcs
-" a' - like c, but only if the current working directory outside of CtrlP is not
-"      a direct ancestor of the directory of the current file.
-let g:ctrlp_working_path_mode = 'ra'
+"'c' - the directory of the current file
+let g:ctrlp_working_path_mode = 'rc'
 
 if executable('ag') " The Silver Searcher
     let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
