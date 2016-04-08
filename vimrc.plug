@@ -67,7 +67,14 @@ Plug 'Raimondi/delimitMate'
 " https://github.com/terryma/vim-multiple-cursors
 " see example gif and keystrokes
 Plug 'terryma/vim-multiple-cursors'
+" prevent conflict with deoplete: github.com/Shougo/deoplete.nvim/issues/162
+function! Multiple_cursors_before()
+    let b:deoplete_disable_auto_complete = 1
+endfunction
 
+function! Multiple_cursors_after()
+    let b:deoplete_disable_auto_complete = 0
+endfunction
 " }}}
 
 " code {{{1
