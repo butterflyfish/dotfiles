@@ -15,6 +15,9 @@ Plug 'stefandtw/quickfix-reflector.vim'
 " set filetype according to context
 Plug 'Shougo/context_filetype.vim'
 
+" Speed up the updating folds
+Plug 'Konfekt/FastFold'
+
 " work better for neovim {{{1
 if has("nvim")
 
