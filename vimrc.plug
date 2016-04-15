@@ -306,9 +306,16 @@ map <Leader>k <Plug>(easymotion-k)
 map  <Leader>w <Plug>(easymotion-bd-w)
 nmap <Leader>w <Plug>(easymotion-overwin-w)
 
+" By default, CtrlSF use working directory as search path when no path is specified
 Plug 'dyng/ctrlsf.vim'
 map <leader>/ :CtrlSF<Space>
 map <leader>c :CtrlSFToggle<cr>
+
+let g:ctrlsf_ackprg = 'pt'
+let g:ctrlsf_extra_backend_args = {
+    \ 'pt': '--home-ptignore'
+    \ }
+
 " }}}
 
 " autoload .vimrc.plug
