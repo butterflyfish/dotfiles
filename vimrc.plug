@@ -233,23 +233,13 @@ let g:ctrlp_map = '<Leader>o'
 "'c' - the directory of the current file
 let g:ctrlp_working_path_mode = 'rc'
 
-if executable('ag') " The Silver Searcher
-    let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
-    " ag is fast enough that CtrlP doesn't need to cache
-    let g:ctrlp_use_caching = 0
-elseif executable('find')
-    let s:ctrlp_fallback = 'find %s -type f'
-else " Window OS
-    let s:ctrlp_fallback = 'dir %s /-n /b /s /a-d'
-endif
-
 "Use %s in place of the target directory
 let g:ctrlp_user_command = {
     \ 'types': {
       \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
       \ 2: ['.hg', 'hg --cwd %s locate -i .'],
     \ },
-    \ 'fallback': s:ctrlp_fallback
+    \ 'fallback': 'pt %s --nocolor -l -g ""'
     \ }
 
 " Exclude files and directories using Vim's wildignore and g:ctrlp_custom_ignore
