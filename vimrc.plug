@@ -92,7 +92,7 @@ Plug 'tpope/vim-jdaddy', { 'for': 'json' }
 " Golang {{{2
 "
 " :GoInstallBinaries/GoUpdateBinaries to install/update godef, gocode etc
-Plug 'fatih/vim-go', { 'do': 'vim +GoInstallBinaries +qall' }
+Plug 'fatih/vim-go'
 
 " workable for vim and mvim
 let g:go_bin_path=expand("~/.gocode/bin")
