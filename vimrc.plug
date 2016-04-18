@@ -40,9 +40,12 @@ Plug 'zchee/deoplete-clang', { 'for': 'c', 'do': 'make'}
 let g:deoplete#sources#clang#libclang_path =  "/usr/local/opt/llvm/lib/libclang.dylib"
 let  g:deoplete#sources#clang#clang_header = '/usr/local/opt/llvm/lib/clang'
 
-Plug 'Shougo/neoinclude.vim'
-
 Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
+
+" tmuxcomplete source for tmux panes.
+Plug 'wellle/tmux-complete.vim'
+
+Plug 'Shougo/neoinclude.vim'
 
 Plug 'Shougo/echodoc.vim'
 set cmdheight=2
