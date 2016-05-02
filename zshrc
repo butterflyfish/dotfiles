@@ -58,6 +58,9 @@ plugins=(autojump gitfast golang web-search colored-man brew sudo vi-mode histor
 export GOPATH=$HOME/.gocode
 [ -d $GOPATH ] && PATH=$PATH:$GOPATH/bin
 
+export RUSTPATH=$HOME/.cargo
+[ -d $RUSTPATH ] && PATH=$PATH:$RUSTPATH/bin
+
 export PATH
 export MANPATH="/usr/local/man:$MANPATH"
 
