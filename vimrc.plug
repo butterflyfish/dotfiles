@@ -18,6 +18,10 @@ Plug 'Shougo/context_filetype.vim'
 " Speed up the updating folds
 Plug 'Konfekt/FastFold'
 
+" changes the working directory to the project root identified by the presence of
+" known directory,e.g. .git
+Plug 'airblade/vim-rooter'
+
 " work better for neovim {{{1
 if has("nvim")
 
