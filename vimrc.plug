@@ -221,40 +221,13 @@ nmap [h <Plug>GitGutterPrevHunk
 
 " }}}
 
-" CtrlP {{{1
-" Fast CtrlP matcher based on python
-Plug 'FelikZ/ctrlp-py-matcher'
-let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+" FZF {{{1
 
-Plug 'tacahiroy/ctrlp-funky'
-nnoremap <Leader>ff :CtrlPFunky<Cr>
-
-Plug 'ctrlpvim/ctrlp.vim'
-" nnoremap <Leader>o :CtrlP<CR>
-let g:ctrlp_map = '<Leader>o'
-
-
-"'r' - the nearest ancestor that contains one of these directories or files:
-"      .git .hg .svn .bzr _darcs
-"'c' - the directory of the current file
-let g:ctrlp_working_path_mode = 'rc'
-
-"Use %s in place of the target directory
-let g:ctrlp_user_command = {
-    \ 'types': {
-      \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
-      \ 2: ['.hg', 'hg --cwd %s locate -i .'],
-    \ },
-    \ 'fallback': 'pt %s --nocolor -l -g ""'
-    \ }
-
-" Exclude files and directories using Vim's wildignore and g:ctrlp_custom_ignore
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ }
-
-nmap <leader><space> :CtrlPBuffer<cr>
+" it use FZF_DEFAULT_COMMAND to find files
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+nnoremap <silent>  <leader>o :FZF +m --prompt="Files>"<CR>
+nnoremap <silent>  <leader><space> :Buffers<CR>
 
 " }}}
 
