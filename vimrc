@@ -119,9 +119,6 @@ nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 " foldmethod: indent, syntax, marker, manual etc
 nnoremap <expr> <CR> foldlevel(line('.'))  ? "za" : "\<CR>"
 
-" Find merge conflict markers
-nnoremap <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
-
 " An alternative for the esc key is CTRL+[ combination
 inoremap jk <Esc>
 
