@@ -33,6 +33,13 @@ curl https://raw.githubusercontent.com/sindresorhus/pure/master/pure.zsh > pure.
 curl https://raw.githubusercontent.com/sindresorhus/pure/master/async.zsh > async.zsh
 )
 
+# A command-line fuzzy finder
+[  -d  ~/.fzf ] || {
+echo Clone fuzzy finder fzf
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+}
+
 # download Minimalist Vim Plugin Manager
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
