@@ -53,8 +53,12 @@ plugins=(autojump gitfast golang web-search colored-man brew sudo vi-mode histor
 
 # User configuration
 
+[ -d /usr/local/bin ] && PATH=/usr/local/bin:$PATH
+
 export GOPATH=$HOME/.gocode
-export PATH=$HOME/bin:/usr/local/bin:$PATH:$GOPATH/bin
+[ -d $GOPATH ] && PATH=$PATH:$GOPATH/bin
+
+export PATH
 export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
