@@ -46,6 +46,10 @@ let  g:deoplete#sources#clang#clang_header = '/usr/local/opt/llvm/lib/clang'
 
 Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
 
+" Rust code completion and navigation
+Plug 'racer-rust/vim-racer', { 'for': 'rust' }
+let $RUST_SRC_PATH= expand("~/.cargo/rust/src")
+
 " tmuxcomplete source for tmux panes.
 Plug 'wellle/tmux-complete.vim'
 
@@ -98,6 +102,14 @@ Plug 'Yggdroot/indentLine'
 
 " JSON manipulation and pretty printing
 Plug 'tpope/vim-jdaddy', { 'for': 'json' }
+
+" Rust {{{ 1
+" provides Rust file detection, syntax highlighting, and (optional) autoformatting
+Plug 'rust-lang/rust.vim'
+
+" format your code using [rustfmt][rfmt] every time a buffer is written
+let g:rustfmt_autosave = 1
+" }}}
 
 " Golang {{{2
 "
