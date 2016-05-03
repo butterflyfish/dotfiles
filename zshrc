@@ -89,3 +89,5 @@ alias ssh="TERM=xterm-256color ssh"
 # A command-line fuzzy finder written in Go
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='(git ls-tree -r --name-only HEAD ||pt --nocolor -l -g "")'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
