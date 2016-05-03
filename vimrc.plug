@@ -228,6 +228,9 @@ nmap [h <Plug>GitGutterPrevHunk
 " FZF {{{1
 
 " it use FZF_DEFAULT_COMMAND to find files
+" explictly set FZF_DEFAULT_COMMAND to avoid GUI does not know it
+let $FZF_DEFAULT_COMMAND='(git ls-tree -r --name-only HEAD ||pt --nocolor -l -g "")'
+
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 nnoremap <silent>  <leader>o :FZF +m --prompt="Files>"<CR>
