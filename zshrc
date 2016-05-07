@@ -49,7 +49,7 @@ ZSH_THEME="pure"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(autojump gitfast golang web-search colored-man brew sudo vi-mode history-substring-search)
+plugins=(autojump gitfast golang web-search colored-man brew sudo vi-mode)
 
 # User configuration
 
@@ -70,7 +70,6 @@ export LANG=en_US.UTF-8
 source $ZSH/oh-my-zsh.sh
 
 bindkey  jk vi-cmd-mode
-bindkey '^R' history-incremental-search-backward
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
