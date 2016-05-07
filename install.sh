@@ -7,8 +7,13 @@ ln -sf $PWD/tmux.conf ~/.tmux.conf
 # update terminfo to support italic font supported by iTerm Tmux etc
 # Test: echo `tput sitm`italics`tput ritm`
 infocmp $TERM |sed  's|$|sitm=\\E[3m, ritm=\\E[23m,|' > $TERM.ti
-
 tic $TERM.ti
+
+# fix ctrl-h does not work
+# https://github.com/neovim/neovim/wiki/FAQ
+infocmp $TERM | sed 's/kbs=^[hH]/kbs=\\177/' > $TERM.ti
+tic $TERM.ti
+
 rm  $TERM.ti
 
 # install fonts
