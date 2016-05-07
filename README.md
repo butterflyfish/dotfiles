@@ -40,11 +40,6 @@ iTerm is my favority terminal emulator on MAC OS X. It have wonderful features, 
 My profiles change set:
 
 * Text page: use *Anonymice Powerline* as Font and Non-ASCII Font
-* Terminal: Report Terminal  Type is *xterm-256color-italic*
-* Advanced -> Trigger
-	* Regular Expression: *^([a-zA-Z0-9+/.-]+):([0-9]+):[0-9]+: (?:error|warning):*
-	* Action: Capture Output
-	* Parameters: *echo :e +\2 \1*
 * colors presets: [guvbox](https://github.com/morhetz/gruvbox-generalized/tree/master/iterm2), Solarized Dark(builtin)
 
 How to reset settings to default ?
