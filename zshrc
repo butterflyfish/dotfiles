@@ -84,7 +84,6 @@ bindkey '^R' history-incremental-search-backward
 # alias zshconfig="mate ~/.zshrc"
 alias -s c=vim
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
-alias ssh="TERM=xterm-256color ssh"
 
 # A command-line fuzzy finder written in Go
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
