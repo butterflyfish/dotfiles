@@ -291,6 +291,8 @@ autocmd QuickFixCmdPost *grep* cwindow
 " neovim {{{1
 if has("nvim")
 
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
 " Neovim inside terminal palette: gruvbox -- dark mode
 " https://github.com/morhetz/gruvbox#dark-mode-1
 let g:terminal_color_0  = '#282828'
