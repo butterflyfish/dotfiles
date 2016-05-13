@@ -137,6 +137,10 @@ endif
 
 " visual style {{{1
 
+
+" using 24-bit color. Requires a ISO-8613-3 compatible terminal
+set termguicolors
+
 "always show the status line
 set laststatus=2
 
@@ -290,8 +294,6 @@ autocmd QuickFixCmdPost *grep* cwindow
 
 " neovim {{{1
 if has("nvim")
-
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 " Neovim inside terminal palette: gruvbox -- dark mode
 " https://github.com/morhetz/gruvbox#dark-mode-1
