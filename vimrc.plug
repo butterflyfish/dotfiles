@@ -28,7 +28,12 @@ if has("nvim")
 " man page:autocomplete, jump to manpages
 Plug 'nhooyr/neoman.vim'
 
+" it's recommended to configure syntastic checker at .vimrc.local, and add
+" autocmd! BufWritePost * Neomake
+" more info, please :help neomake and read README.md
 Plug 'benekastah/neomake'
+let g:neomake_error_sign = {'text': '❌'  }
+let g:neomake_warning_sign = {'text': '⚠️'  }
 nnoremap <F5> :w<CR> :Neomake!<CR>
 inoremap <F5> <Esc>:w<CR>:Neomake!<CR>
 
