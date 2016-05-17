@@ -55,6 +55,10 @@ Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
 Plug 'racer-rust/vim-racer', { 'for': 'rust' }
 let $RUST_SRC_PATH= expand("~/.cargo/rust/src")
 
+" Javascript code completion using tern(npm install -g ternjs)
+" http://ternjs.net/doc/manual.html#configuration
+Plug 'carlitux/deoplete-ternjs', {'for': 'javascript,html'}
+
 " tmuxcomplete source for tmux panes.
 Plug 'wellle/tmux-complete.vim'
 
@@ -135,11 +139,7 @@ let g:go_fmt_command = "goimports"
 
 " }}}
 
-" Javascript and HTML {{{2
-" javascript auto-completition based on Tern
-" Tern uses .tern-project files to configure loading libraries and plugins for
-" a project. See the Tern docs for details
-Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
+" Javascript {{{2
 
 " Yet Another Javascript Syntax
 Plug 'othree/yajs.vim'
