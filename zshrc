@@ -54,6 +54,7 @@ plugins=(autojump gitfast golang web-search colored-man brew sudo vi-mode)
 # User configuration
 
 [ -d /usr/local/bin ] && PATH=/usr/local/bin:$PATH
+[ -d /usr/local/sbin ] && PATH=/usr/local/sbin:$PATH
 
 export GOPATH=$HOME/.gocode
 [ -d $GOPATH ] && PATH=$PATH:$GOPATH/bin
