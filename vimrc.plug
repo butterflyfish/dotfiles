@@ -39,10 +39,7 @@ inoremap <F5> <Esc>:w<CR>:Neomake!<CR>
 
 " auto-complete {{{2
 
-function! DoRemote(arg)
-  UpdateRemotePlugins
-endfunction
-Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 let g:deoplete#enable_at_startup = 1
 
 Plug 'zchee/deoplete-clang', { 'for': 'c', 'do': 'make'}
