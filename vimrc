@@ -314,6 +314,7 @@ let g:terminal_color_13 = '#d3869b'
 let g:terminal_color_14 = '#8ec07c'
 let g:terminal_color_15 = '#ebdbb2'
 
+set inccommand=nosplit
 endif
 
 " }}}
