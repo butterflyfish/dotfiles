@@ -25,9 +25,6 @@ Plug 'airblade/vim-rooter'
 " work better for neovim {{{1
 if has("nvim")
 
-" man page:autocomplete, jump to manpages
-Plug 'nhooyr/neoman.vim'
-
 " it's recommended to configure syntastic checker at .vimrc.local, and add
 " autocmd! BufWritePost * Neomake
 " more info, please :help neomake and read README.md
