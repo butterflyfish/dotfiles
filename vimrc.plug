@@ -207,6 +207,10 @@ let g:airline#extensions#tabline#enabled = 1
 
 Plug 'christoomey/vim-tmux-navigator'
 
+" vim-tmux-clipboard automatically copy yanked text into tmux's clipboard, and
+" copy tmux's clipboard content into vim's quote(") register
+Plug 'roxma/vim-tmux-clipboard'
+
 " Just start vim inside of tmux. airline's colors will be applied to tmux's
 " statusline
 Plug 'edkolev/tmuxline.vim'
