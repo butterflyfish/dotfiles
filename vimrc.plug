@@ -265,7 +265,9 @@ let g:undotree_SetFocusWhenToggle=1
 
 " colorscheme
 Plug 'morhetz/gruvbox'
-Plug 'justinmk/molokai'
+Plug 'joshdick/onedark.vim'
+Plug 'sickill/vim-monokai'
+
 
 " many themes, inlucde base16-molokai
 Plug 'chriskempson/base16-vim'
