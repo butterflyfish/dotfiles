@@ -53,4 +53,4 @@ ln -sf $PWD/vimrc ~/.vimrc
 ln -sf $PWD/vimrc.plug ~/.vimrc.plug
 
 echo "start Vim/Neovim to install plugins"
-$(type nvim > /dev/null) && nvim +PlugInstall +qall || vim +PlugInstall +qall
+$(type nvim 2&1 > /dev/null) && nvim +PlugInstall +qall || vim +PlugInstall +qall
