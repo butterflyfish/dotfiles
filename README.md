@@ -39,7 +39,7 @@ iTerm is my favority terminal emulator on MAC OS X. It have wonderful features, 
 
 My profiles change set:
 
-* Text page: use *Anonymice Powerline* as Font and Non-ASCII Font
+* Text page: use [Fira Code](https://github.com/tonsky/FiraCode) as Font and Non-ASCII Font
 * colors presets: [guvbox](https://github.com/morhetz/gruvbox-generalized/tree/master/iterm2), Solarized Dark(builtin)
 
 How to reset settings to default ?

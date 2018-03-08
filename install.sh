@@ -16,10 +16,6 @@ tic $TERM.ti
 
 rm  $TERM.ti
 
-# install fonts
-# iTerm2 and Vim use the fonts
-./fonts/install.sh
-
 # install oh-my-zsh[https://github.com/robbyrussell/oh-my-zsh]
 [ -d  ~/.oh-my-zsh/.git ] || sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 ln -sf $PWD/zshrc ~/.zshrc
