@@ -35,10 +35,6 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 }
 
-# download Minimalist Vim Plugin Manager
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-echo install/update minimalist Vim plugin manager
 
 # Neovim/Vim's config file and plugins
 echo "make links for Vim/Neovim's configuration"
