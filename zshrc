@@ -83,6 +83,7 @@ bindkey  jk vi-cmd-mode
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 alias -s c=vim
+alias vim=nvim
 
 # A command-line fuzzy finder written in Go
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
