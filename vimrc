@@ -20,20 +20,6 @@
 " c/search<Enter>
 " c?search<Enter>
 
-" ctags
-"
-" ctags -R --exclude=.git --tag-relative --fields=+l --langmap=c:.c.h -f .git/tags
-" git ls-files | ctags --tag-relative -L - --fields=+l --langmap=c:.c.h -f .git/tags
-" I stick the tags file in .git because if fugitive.vim is installed, Vim will be configured
-" to look for tags there automatically, regardless of your current working directory
-"
-" hitting g] or CTRL-] will jump to the place where that method is defined or implemented.
-" :CtrlPTag will let you search through your tags file and jump to where tags are defined
-
-" built-in solution to the problem of mismatches when using the jump commands
-" (f, t, F, T) is the use of ; and, Semicolon will repeat the last jump command,
-" and comma will repeat it in the opposite direction. t: till before
-"
 " }}}
 
 " Use Vim settings, rather then Vi settings.
@@ -57,6 +43,8 @@ set ttyfast
 " will not redraw the screen while running macros (goes faster)
 set lazyredraw
 
+set mouse=a
+
 " display incomplete commands
 set showcmd
 
@@ -70,27 +58,52 @@ set backspace=indent,eol,start
 " complete options
 set completeopt+=noinsert
 set completeopt+=noselect
+set completeopt+=menuone
 set completeopt-=preview
+
+" suppress the annoying 'match x of y', 'The only match' and 'Pattern not found' messages
+set shortmess+=c
+
+" CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
+inoremap <c-c> <ESC>
+
 
 " key map {{{1
 "TIP: check what's mapped to the key
 ":verbose imap <tab>
+
+" use  ⌘s  to save file in iTerm2
+" iTerm2 -> Preferences -> Keys -> +: add new key map
+"     Keyboard Shortcut: ⌘s
+"     Action: Send Text with "vim" Specia Chars
+"     :w\n
 "
+
+" For when you forget to sudo.. Really Write the file.
+cmap w!! w !sudo tee % >/dev/null
+
 " don't use Arrow to navigator
 nnoremap <Left> :echoe "Use h"<CR>
 nnoremap <Right> :echoe "Use l"<CR>
 nnoremap <Up> :echoe "Use k"<CR>
 nnoremap <Down> :echoe "Use j"<CR>
 
-nnoremap <Leader>q :q!<cr>
-nnoremap <Leader>s :w<cr>
+" don't use q as recording
+function Quit()
+    if len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
+        exec "q!"
+    else
+        exec "bdelete!"
+    endif
+endfunction
+nnoremap q :call Quit()<cr>
+
+" next buffer
+nnoremap <Tab> :bnext<CR>
 
 " Resize Window
 nnoremap <Leader>- 2<C-w>-
 nnoremap <Leader>= 2<C-w>+
-
-" switch between last two files
-nnoremap <leader><Tab> <c-^>
 
 " http://vim.wikia.com/wiki/Move_cursor_by_display_lines_when_wrapping
 nnoremap <silent> j gj
@@ -107,9 +120,6 @@ nnoremap [q :cp<cr>
 nnoremap ' `
 nnoremap ` '
 
-" For when you forget to sudo.. Really Write the file.
-cmap w!! w !sudo tee % >/dev/null
-
 " select last changed/pasted text
 " similar to the standard 'gv': select the last visually-selected text.
 " http://vim.wikia.com/wiki/Selecting_your_pasted_text
@@ -122,6 +132,12 @@ nnoremap <expr> <CR> foldlevel(line('.'))  ? "za" : "\<CR>"
 " An alternative for the esc key is CTRL+[ combination
 inoremap jk <Esc>
 
+" Set working directory
+nnoremap <silent> <leader>. :lcd %:p:h<CR>:pwd<CR>
+
+" Clean search (highlight)
+nnoremap <silent> <leader>h :nohlsearch<CR>
+
 if has('nvim')
 
 " keymap for neovim terminal
@@ -130,6 +146,23 @@ tnoremap <C-h> <C-\><C-n><C-w>h
 tnoremap <C-j> <C-\><C-n><C-w>j
 tnoremap <C-k> <C-\><C-n><C-w>k
 tnoremap <C-l> <C-\><C-n><C-w>l
+
+function! Tig()
+    let s:callback = {}
+
+    if finddir('.git') != ".git"
+        return
+    endif
+
+    function! s:callback.on_exit(id, status, event)
+      exec 'bw!'
+    endfunction
+
+    exec 'enew'
+    call termopen('tig', s:callback)
+    startinsert
+endfunction
+nnoremap <silent> <leader>g :call Tig()<cr>
 
 endif
 
@@ -144,27 +177,14 @@ set termguicolors
 "always show the status line
 set laststatus=2
 
-if has("gui_running")
-
-    set guioptions-=r  "remove right-hand scroll bar
-    set guioptions-=L  "remove left-hand scroll bar
-
-    set gfn=Anonymice\ Powerline:h14
-
-    " colorscheme
-    colorscheme molokai
-else
-    colorscheme gruvbox
-endif
-
+colorscheme gruvbox
 set background=dark
-
 
 " enable syntax highlight
 syntax enable
 
-" must after loading theme related
-" Font used by gvim/Terminal must support italic typeface
+" must be after loading color theme related
+" Font used by GUI VIM/Terminal must support italic typeface
 highlight Comment cterm=italic
 highlight Comment gui=italic
 
@@ -177,6 +197,7 @@ set cursorline
 " show matching bractes
 set showmatch
 
+set ruler
 set number
 
 
@@ -190,17 +211,10 @@ set listchars=tab:▸\ ,
 " it is convenient to use :set list! to toggle the option 'list' on
 set list
 
-" set textwidth=80
-" set cc=+1
-
 " }}}
 
 " clipboard {{{1
 " make all yanking/deleting operations automatically copy to the system clipboard
-"
-" since the version of vim that comes with OSX does not support using the system
-" clipboard, mvim is used. This command will also alias vim, vi, view, vimdiff,
-" etc. brew install macvim --override-system-vim && brew linkapps
 if has("clipboard")
     " on Mac and Windows, use * register for copy-paste
     if has("macunix")||has("win32")||has("win64")
@@ -217,8 +231,7 @@ set nobackup
 set noswapfile
 
 if has("persistent_undo")
-    "directory must be existed first
-    set undodir="~/.undodir"
+    " nvim'undodir' defaults to ~/.local/share/nvim/undo that's auto-created
     set undofile
     set undolevels=1000     " Maximum number of changes that can be undone
     set undoreload=10000    " Maximum number lines to save for undo on a buffer reload
@@ -242,6 +255,7 @@ set smartcase
 " Allow buffer switching without saving
 set hidden
 
+set wildmode=list:longest,list:full
 set wildignore+=*.o,*.so,*.ko,*.swp,*.zip,*.pyc
 
 set formatoptions+=mM
@@ -261,30 +275,33 @@ set autowrite
 
 " to insert a real tab when 'expandtab' is on, use CTRL-V<Tab>
 set expandtab
-set tabstop=4 shiftwidth=4 softtabstop=4
+set tabstop=4 shiftwidth=4 softtabstop=0
 
 "help smarttab
 "set smarttab
 " }}}
 
 " autocmd {{{1
-augroup vimrc
+augroup vimrc-gitcommit
     autocmd!
-
-    " Auto jump to last edit place when opening a file
-    if has("autocmd")
-        au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-        \| exe "normal g'\"" | endif
-    endif
-
     " Instead of reverting the cursor to the last position in the buffer, set it to
     " the first line when editing a git commit message
     autocmd FileType gitcommit autocmd! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
-
-    " Always switch to the current file directory
-    " autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
 augroup END
 
+
+"" Remember cursor position
+augroup vimrc-remember-cursor-position
+  autocmd!
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+augroup END
+
+"" make/cmake
+augroup vimrc-make-cmake
+  autocmd!
+  autocmd FileType make setlocal noexpandtab
+  autocmd BufNewFile,BufRead CMakeLists.txt setlocal filetype=cmake
+augroup END
 
 " cause the quickfix window to open after any grep invocation:
 autocmd QuickFixCmdPost *grep* cwindow
@@ -319,13 +336,22 @@ endif
 
 " }}}
 
+" Settings for language {{{1
+
+let g:tex_flavor = "context"
+
+augroup vimrc-language
+  autocmd!
+  autocmd FileType javascript set tabstop=4|set shiftwidth=4|set expandtab softtabstop=4
+  autocmd Filetype html setlocal ts=2 sw=2 expandtab
+  autocmd Filetype go setlocal noexpandtab
+augroup END
+
+
+" }}}
+
 if filereadable('./.vimrc.local')
     so ./.vimrc.local
 endif
-
-" set grepprg=ag\ --nogroup\ --nocolor
-" command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-" nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
-" nnoremap <leader>/ :Ag<SPACE>
 
 " vim: set foldlevel=0 foldmethod=marker:

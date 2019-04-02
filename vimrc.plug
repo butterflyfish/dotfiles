@@ -1,18 +1,17 @@
-call plug#begin('~/.vim/plugged')
 " Plug {{{1
 let vimplug_exists=expand('~/.vim/autoload/plug.vim')
 
 if !filereadable(vimplug_exists)
-  if !executable("curl")
-    echoerr "You have to install curl or first install vim-plug yourself!"
-    execute "q!"
-  endif
-  echo "Installing Vim-Plug..."
-  echo ""
-  silent !\curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  let g:not_finish_vimplug = "yes"
+    if !executable("curl")
+        echoerr "You have to install curl or first install vim-plug yourself!"
+        execute "q!"
+    endif
+    echo "Installing Vim-Plug..."
+    echo ""
+    silent !\curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    let g:not_finish_vimplug = "yes"
 
-  autocmd VimEnter * PlugInstall
+    autocmd VimEnter * PlugInstall
 endif
 
 " Required:
@@ -21,73 +20,47 @@ call plug#begin(expand('~/.vim/plugged'))
 
 Plug 'tpope/vim-repeat'
 
-" toggle, display and navigate marks
-Plug 'kshenoy/vim-signature'
+" Sidebar {{{1
 
-" toggle the display of the quickfix list and the location-list
-" Plug 'Valloric/ListToggle'
+Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'scrooloose/nerdtree'
+map <leader>e :NERDTreeToggle<CR>
+let g:NERDTreeQuitOnOpen=1
 
-" Change code right in the quickfix window
-Plug 'stefandtw/quickfix-reflector.vim'
+" universal-ctags is recommended
+Plug 'majutsushi/tagbar'
+nmap <silent> t :TagbarOpenAutoClose<CR>
 
-" set filetype according to context
-Plug 'Shougo/context_filetype.vim'
-
-" Speed up the updating folds
-Plug 'Konfekt/FastFold'
-
-" changes the working directory to the project root identified by the presence of
-" known directory,e.g. .git
-Plug 'airblade/vim-rooter'
-
-" work better for neovim {{{1
-if has("nvim")
-
-" it's recommended to configure syntastic checker at .vimrc.local, and add
-" autocmd! BufWritePost * Neomake
-" more info, please :help neomake and read README.md
-Plug 'benekastah/neomake'
-let g:neomake_error_sign = {'text': '❌'  }
-let g:neomake_warning_sign = {'text': '⚠️'  }
-nnoremap <F5> :w<CR> :Neomake!<CR>
-inoremap <F5> <Esc>:w<CR>:Neomake!<CR>
-
-" auto-complete {{{2
-
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-let g:deoplete#enable_at_startup = 1
-
-Plug 'zchee/deoplete-clang', { 'for': 'c', 'do': 'make'}
-let g:deoplete#sources#clang#libclang_path =  "/usr/local/opt/llvm/lib/libclang.dylib"
-let  g:deoplete#sources#clang#clang_header = '/usr/local/opt/llvm/lib/clang'
-
-Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
-
-" Rust code completion and navigation
-Plug 'racer-rust/vim-racer', { 'for': 'rust' }
-let $RUST_SRC_PATH= expand("~/.cargo/rust/src")
-
-" Javascript code completion using tern(npm install -g ternjs)
-" http://ternjs.net/doc/manual.html#configuration
-Plug 'carlitux/deoplete-ternjs', {'for': 'javascript,html'}
-
-" tmuxcomplete source for tmux panes.
-Plug 'wellle/tmux-complete.vim'
-
-Plug 'Shougo/neoinclude.vim'
-
-Plug 'Shougo/echodoc.vim'
-set cmdheight=2
-let g:echodoc_enable_at_startup = 1
-
-" }}}
-
-endif
-" }}}
+" https://github.com/jstemmer/gotags
+let g:tagbar_type_go = {
+            \ 'ctagstype' : 'go',
+            \ 'kinds'     : [
+            \ 'p:package',
+            \ 'i:imports:1',
+            \ 'c:constants',
+            \ 'v:variables',
+            \ 't:types',
+            \ 'n:interfaces',
+            \ 'w:fields',
+            \ 'e:embedded',
+            \ 'm:methods',
+            \ 'r:constructor',
+            \ 'f:functions'
+            \ ],
+            \ 'sro' : '.',
+            \ 'kind2scope' : {
+            \ 't' : 'ctype',
+            \ 'n' : 'ntype'
+            \ },
+            \ 'scope2kind' : {
+            \ 'ctype' : 't',
+            \ 'ntype' : 'n'
+            \ },
+            \ 'ctagsbin'  : 'gotags',
+            \ 'ctagsargs' : '-sort -silent'
+            \ }
+" }}} Sidebar
 
 " Edit assistant {{{1
-
-Plug 'tpope/vim-commentary'
 
 Plug 'bkad/CamelCaseMotion'
 omap <silent> iw <Plug>CamelCaseMotion_iw
@@ -96,213 +69,68 @@ xmap <silent> iw <Plug>CamelCaseMotion_iw
 " provides mappings to easily delete, change and add such surroundings in pairs
 Plug 'tpope/vim-surround'
 
-" Easy text exchange operator
-Plug 'tommcdo/vim-exchange'
+" Insert or delete brackets, parens, quotes in pair
+Plug 'jiangmiao/auto-pairs'
+" disable Map <CR> to insert a new indented line if cursor in (|), {|} [|], '|', "|"
+" pls refer to keymap below with ncm2 and UltiSnips
+let g:AutoPairsMapCR=0
 
-" provides insert mode auto-completion for quotes, parens, brackets, etc.
-Plug 'Raimondi/delimitMate'
-
-" https://github.com/terryma/vim-multiple-cursors
-" see example gif and keystrokes
 Plug 'terryma/vim-multiple-cursors'
-" prevent conflict with deoplete: github.com/Shougo/deoplete.nvim/issues/162
-function! Multiple_cursors_before()
-    let b:deoplete_disable_auto_complete = 1
-endfunction
 
-function! Multiple_cursors_after()
-    let b:deoplete_disable_auto_complete = 0
-endfunction
-" }}}
+" insert mode: c-v
+Plug 'cyansprite/Extract'
+" the number of yanks you want to save
+let g:extract_maxCount=10
 
-" code {{{1
-
-" displaying thin vertical lines at each indentation level for code indented
-" with spaces. patching font to get better visual
-Plug 'Yggdroot/indentLine'
-" don't hide quotes for json files
-let g:indentLine_fileTypeExclude = ['json']
-
-" JSON manipulation and pretty printing
-Plug 'tpope/vim-jdaddy', { 'for': 'json' }
-
-" Rust {{{ 1
-" provides Rust file detection, syntax highlighting, and (optional) autoformatting
-Plug 'rust-lang/rust.vim'
-
-" format your code using [rustfmt][rfmt] every time a buffer is written
-let g:rustfmt_autosave = 1
-" }}}
-
-" Golang {{{2
-"
-" :GoInstallBinaries/GoUpdateBinaries to install/update godef, gocode etc
-Plug 'fatih/vim-go'
-
-" workable for vim and mvim
-let g:go_bin_path=expand("~/.gocode/bin")
-
-" Show type info for the word under your cursor
-let g:go_auto_type_info=1
-
-" Enable goimports to automatically insert import paths instead of gofmt
-let g:go_fmt_command = "goimports"
-
-" Disable auto fmt on save:
-" let g:go_fmt_autosave = 0
-
-" }}}
-
-" Javascript {{{2
-
-" Yet Another Javascript Syntax
-Plug 'othree/yajs.vim'
-
-" }}}
-
-" Ultisnips {{{2
-
-" vim-snippets depends on ultisnips
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-
-" work under insermode or :call UltiSnipsListSnippets()
-let g:UltiSnipsListSnippets= "<c-u>"
-
-" https://github.com/SirVer/ultisnips/issues/519#issuecomment-143450416
-" next menu item, expand snippet, forward or insert literal tab
-let g:UltiSnipsJumpForwardTrigger="<NOP>"
-inoremap <expr> <TAB>
-    \ pumvisible() ? "\<C-n>" :
-    \ "<C-R>=ExpandSnippetOrJumpForwardOrReturnTab()<CR>"
-
-" forward or do nothing
-snoremap <buffer> <silent> <TAB>
-    \ <ESC>:call UltiSnips#JumpForwards()<CR>
-
-" expand snippet, close menu or insert newline
-let g:UltiSnipsExpandTrigger = "<NOP>"
-inoremap <silent> <CR> <C-R>=ExpandSnippetOrReturnEmptyString()<CR>
-
-function! ExpandSnippetOrJumpForwardOrReturnTab()
-    let snippet = UltiSnips#ExpandSnippetOrJump()
-    if g:ulti_expand_or_jump_res > 0
-        return snippet
-    else
-        return "\<TAB>"
-    endif
-endfunction
-
-function! ExpandSnippetOrReturnEmptyString()
-    if pumvisible()
-        let snippet = UltiSnips#ExpandSnippetOrJump()
-        if g:ulti_expand_or_jump_res > 0
-            return snippet
-        else
-            return "\<C-y>\<CR>"
-        endif
-    else
-        return "\<CR>"
-endfunction
-
-"}}}
-
-" tagbar {{{2
-Plug 'majutsushi/tagbar'
-let g:tagbar_left=1
-let g:tagbar_autofocus=1
-nmap <leader>t :TagbarOpenAutoClose<CR>
-" }}}
-
-" }}}
-
-" Tmux & Airline {{{1
-
-" Plug 'bling/vim-airline'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-
-Plug 'christoomey/vim-tmux-navigator'
-
-" vim-tmux-clipboard automatically copy yanked text into tmux's clipboard, and
-" copy tmux's clipboard content into vim's quote(") register
-Plug 'roxma/vim-tmux-clipboard'
-
-" Just start vim inside of tmux. airline's colors will be applied to tmux's
-" statusline
-Plug 'edkolev/tmuxline.vim'
-
-" }}}
-
-" easy-align {{{1
-Plug 'junegunn/vim-easy-align'
-
-" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
-" wildfire also use Enter by default
-vmap <Enter> <Plug>(EasyAlign)
-
-" Start interactive EasyAlign for a motion/text object (e.g. <Leader>aip)
-nmap <Leader>a <Plug>(EasyAlign)
-"}}}
-
-" Git {{{1
-
-" Glog, Grep, Gblame
-Plug 'tpope/vim-fugitive'
-
-" shows a git diff in the gutter
-Plug 'airblade/vim-gitgutter'
-let g:gitgutter_map_keys = 0
-" jump between hunks:
-nmap ]h <Plug>GitGutterNextHunk
-nmap [h <Plug>GitGutterPrevHunk
-
-" }}}
-
-" FZF {{{1
-
-" it use FZF_DEFAULT_COMMAND to find files
-" explictly set FZF_DEFAULT_COMMAND to avoid GUI does not know it
-let $FZF_DEFAULT_COMMAND='(git ls-tree -r --name-only HEAD ||pt --nocolor -l -g "")'
-
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-nnoremap <silent>  <leader>o :FZF +m --prompt="Files>"<CR>
-nnoremap <silent>  <leader><space> :Buffers<CR>
-
-" }}}
-
-" Undotree {{{1
 Plug 'mbbill/undotree'
 nnoremap <leader>u :UndotreeToggle<CR>
 let g:undotree_SetFocusWhenToggle=1
-" }}}
 
-" color scheme and highlight {{{1
-
-" colorscheme
-Plug 'morhetz/gruvbox'
-Plug 'joshdick/onedark.vim'
-Plug 'sickill/vim-monokai'
-
-
-" many themes, inlucde base16-molokai
-Plug 'chriskempson/base16-vim'
-
-Plug 'ap/vim-css-color'
-
-" all trailing whitespace characters (spaces and tabs)
-" :StripWhitespace --- clean whitespace painless
-Plug 'ntpeters/vim-better-whitespace'
-
-" showing different levels of parentheses in different colors
-Plug 'luochen1990/rainbow'
-let g:rainbow_active = 1
+Plug 'tpope/vim-commentary'
 
 " }}}
 
-" search {{{1
+" Completion {{{1
+
+" ncm2 requires nvim-yarp
+Plug 'ncm2/ncm2' | Plug 'roxma/nvim-yarp'
+" enable ncm2 for all buffer
+autocmd BufEnter * call ncm2#enable_for_buffer()
+" Plug 'ncm2/float-preview.nvim'
+
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-path'
+
+Plug 'ncm2/ncm2-ultisnips' | Plug 'SirVer/ultisnips'
+let g:UltiSnipsExpandTrigger = "<C-u>"   " less used because of keymap below
+
+Plug 'honza/vim-snippets'
+
+let g:LanguageClient_hasSnippetSupport=1
+Plug 'autozimu/LanguageClient-neovim', {
+            \ 'branch': 'next',
+            \ 'do': 'bash install.sh',
+            \ }
+
+let g:LanguageClient_serverCommands = {
+            \ 'go': ['go-langserver', '-gocodecompletion', '-diagnostics', '-lint-tool', 'golint' ],
+            \ 'c': ['clangd'],
+            \ }
+
+augroup LanguageClient_keymap
+    autocmd!
+    autocmd User LanguageClientStarted nnoremap <silent>  <cr> :call LanguageClient#textDocument_hover()<CR>
+    autocmd User LanguageClientStarted nnoremap <silent>  gd   :call LanguageClient#textDocument_definition()<CR>
+    autocmd User LanguageClientStarted nnoremap <silent>  <leader>lx   :call LanguageClient#textDocument_references()<CR>
+    autocmd User LanguageClientStarted nnoremap <silent>  <leader>ls   :call LanguageClient_textDocument_documentSymbol()<CR>
+    autocmd User LanguageClientStarted nnoremap <silent>  <leader>lr :call LanguageClient#textDocument_rename()<CR>
+
+    autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
+augroup END
+
+" }}} Completion
+
+" Search & Explore {{{1
 
 Plug 'easymotion/vim-easymotion'
 
@@ -317,10 +145,6 @@ let g:EasyMotion_smartcase = 1
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
 
-" 2-character search motion
-nmap s <Plug>(easymotion-s2)
-nmap t <Plug>(easymotion-t2)
-
 " JK motions: Line motions
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
@@ -331,18 +155,170 @@ nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 " By default, CtrlSF use working directory as search path when no path is specified
 Plug 'dyng/ctrlsf.vim'
-map <leader>/ :CtrlSF<Space>
-map <leader>c :CtrlSFToggle<cr>
+map   <leader>/ :CtrlSFToggle<cr>
+nmap  <leader>f <Plug>CtrlSFCwordPath
+vmap  <leader>f <Plug>CtrlSFVwordExec
 
-let g:ctrlsf_ackprg = 'pt'
-let g:ctrlsf_extra_backend_args = {
-    \ 'pt': '--home-ptignore'
-    \ }
+" ripgrep
+if executable('rg')
+    let g:ctrlsf_ackprg = 'rg'
+
+    " explictly set FZF_DEFAULT_COMMAND to avoid GUI does not know it
+    let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
+
+    command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+    map <leader>s :Find<space>
+    " command! -bang -nargs=* GGrep
+    "   \ call fzf#vim#grep('git grep --line-number '.shellescape(<q-args>), 0, <bang>0)
+endif
+
+" it use FZF_DEFAULT_COMMAND to find files
+if isdirectory('/usr/local/opt/fzf') " Mac/brew
+    Plug '/usr/local/opt/fzf'
+else
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+endif
+Plug 'junegunn/fzf.vim'
+nnoremap <silent>  <leader>o :FZF +m --prompt=Files><CR>
+nnoremap <silent>  <leader><space> :Buffers<CR>
+nnoremap <silent>  <leader>m :Marks<CR>
 
 " }}}
 
-" autoload .vimrc.plug
-au! bufwritepost .vimrc.plug source ~/.vimrc.plug
+" Color scheme and Highlight {{{1
+
+" colorscheme
+Plug 'morhetz/gruvbox'
+Plug 'sickill/vim-monokai'
+" many themes, inlucde base16-monokai, base16-gruvbox
+Plug 'chriskempson/base16-vim'
+
+
+" all trailing whitespace characters (spaces and tabs)
+" :StripWhitespace --- clean whitespace painless
+Plug 'ntpeters/vim-better-whitespace'
+
+" showing different levels of parentheses in different colors
+Plug 'luochen1990/rainbow'
+let g:rainbow_active = 1
+
+" highlight text yanked
+Plug 'machakann/vim-highlightedyank'
+
+" displaying thin vertical lines at each indentation level for code indented
+" with spaces. patching font to get better visual
+Plug 'Yggdroot/indentLine'
+" don't hide quotes for json files
+let g:indentLine_fileTypeExclude = ['json']
+
+Plug 'ap/vim-css-color'
+
+
+" }}} Color scheme
+
+" Status Line {{{
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = "unique_tail"
+
+" airline need it to show branch
+" it also load tags under .git if it does exist
+Plug 'tpope/vim-fugitive'
+
+" }}} Status Line
+
+" Git {{{1
+
+" shows a git diff in the gutter
+Plug 'airblade/vim-gitgutter'
+let g:gitgutter_map_keys = 0
+" jump between hunks:
+nmap ]h <Plug>GitGutterNextHunk
+nmap [h <Plug>GitGutterPrevHunk
+
+" }}}
+
+" Tmux {{{1
+
+" move between Vim panes and tmux splits seamlessly
+Plug 'christoomey/vim-tmux-navigator'
+
+" vim-tmux-clipboard automatically copy yanked text into tmux's clipboard, and
+" copy tmux's clipboard content into vim's quote(") register
+" Plug 'roxma/vim-tmux-clipboard'
+
+Plug 'wellle/tmux-complete.vim'
+
+" Just start vim inside of tmux. airline's colors will be applied to tmux's
+" statusline
+Plug 'edkolev/tmuxline.vim'
+
+" }}}
+
+" Kepmap for ncm2, UltiSnips, auto-pairs {{{1
+
+" When popup visible, <Tab> acts like <C-n> wich selects next completion item
+" from the list. If there is no popup then <Tab> acts as jump to next snippet
+" placeholder, if we actually editing a snippet. If no popup and no snippet
+" <Tab> acts like <Tab>
+function! SmartTab()
+    if pumvisible()
+        return "\<c-n>"
+    else
+        let snippet = UltiSnips#ExpandSnippetOrJump()
+        if g:ulti_expand_or_jump_res > 0
+            return snippet
+        else
+            return "\<Tab>"
+        endif
+    endif
+endfunction
+
+" The same as previous, but selects previous item and jumps backwards. Or
+" acts like <S-Tab>
+function! SmartSTab()
+    if pumvisible()
+        return "\<c-p>"
+    else
+        let snippet = UltiSnips#JumpBackwards()
+        if g:ulti_expand_or_jump_res > 0
+            return snippet
+        else
+            return "\<S-Tab>"
+        endif
+endfunction
+
+function! ExpandOrJumpOrClosePopup()
+    let snippet = UltiSnips#ExpandSnippetOrJump()
+    if g:ulti_expand_or_jump_res > 0
+        return snippet
+    else
+        return "\<c-y>" "close popup menu
+    endif
+endfunction
+
+snoremap <silent><Tab>      <Esc>:call UltiSnips#JumpForwards()<CR>
+snoremap <silent><S-Tab>    <Esc>:call UltiSnips#JumpBackwards()<CR>
+
+inoremap <silent><S-Tab>    <C-R>=SmartSTab()<CR>
+inoremap <silent><Tab>      <C-R>=SmartTab()<CR>
+
+" if no popup menu, Insert new indented line after return if cursor in blank brackets or quotes.
+" if popup menu is visible, try dynamic (e.g. function parameter expansion from LSP) and static snippet, or jump, or close popup menu
+imap <expr> <CR> (pumvisible() ? "\<C-y>\<Plug>(expand_or_jump_or_close)" : "\<CR><C-R>=AutoPairsReturn()<CR>")
+imap <expr> <Plug>(expand_or_jump_or_close) ( ncm2_ultisnips#completed_is_snippet() ? "\<Plug>(ncm2_ultisnips_expand_completed)" : "\<C-R>=ExpandOrJumpOrClosePopup()<CR>")
+
+" functionality is same as above
+" ncm2_ultisnips#expand_or: expand dynamic snippet first
+" inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or(pumvisible()? "\<C-R>=ExpandOrJumpOrClosePopup()<CR>":"\<CR><C-R>=AutoPairsReturn()<CR>", 'n')
+" }}}
+
+
+" autoload vimrc.plug
+au! bufwritepost *vimrc.plug source ~/.vimrc.plug
 
 if filereadable(expand("~/.vimrc.plug.local"))
     source ~/.vimrc.plug.local
