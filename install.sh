@@ -28,13 +28,14 @@ curl https://raw.githubusercontent.com/sindresorhus/pure/master/pure.zsh > pure.
 curl https://raw.githubusercontent.com/sindresorhus/pure/master/async.zsh > async.zsh
 )
 
-# A command-line fuzzy finder
-[  -d  ~/.fzf ] || {
-echo Clone fuzzy finder fzf
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
-}
-
+if ! `which fzf > /dev/null`; then
+    # A command-line fuzzy finder
+    [  -d  ~/.fzf ] || {
+        echo Clone fuzzy finder fzf
+        git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+        ~/.fzf/install
+    }
+fi
 
 # Neovim/Vim's config file and plugins
 echo "make links for Vim/Neovim's configuration"
@@ -45,4 +46,4 @@ ln -sf $PWD/vimrc ~/.vimrc
 ln -sf $PWD/vimrc.plug ~/.vimrc.plug
 
 echo "start Vim/Neovim to install plugins"
-$(type nvim 2&1 > /dev/null) && nvim +PlugInstall +qall || vim +PlugInstall +qall
+$(type nvim 2&1 > /dev/null) && nvim +PlugInstall +UpdateRemotePlugins +qa || vim +PlugInstall +qall
